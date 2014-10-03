@@ -43,3 +43,5 @@ group :development, :test do
   gem "pry-theme"
   gem "rubocop"
 end
+
+gem "codeclimate-test-reporter", group: :test, require: nil
