@@ -10,6 +10,10 @@ gem "coffee-rails", "~> 4.0.0"
 gem "jquery-rails"
 gem "rails-html-sanitizer", "~> 1.0"
 gem "unicorn"
+gem "simple_form"
+gem "omniauth-facebook"
+gem "twilio-ruby"
+gem "skylight"
 
 group :development do
   gem "better_errors"
