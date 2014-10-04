@@ -40,7 +40,7 @@ group :development, :test do
   gem "hirb"
   gem "pry-rails"
   gem "pry-nav"
-  gem "pry-stack_explorer"
+  # gem "pry-stack_explorer"
   gem "pry-theme"
   gem "rubocop"
 end

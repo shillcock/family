@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
 
+  validates_presence_of :email
+  validates_presence_of :uid
+  validates_presence_of :provider
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_initialize().tap do |user|
       user.provider = auth.provider
