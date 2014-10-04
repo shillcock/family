@@ -1,5 +1,7 @@
 .env
 /log/*.log
 /tmp
-/.idea
-/config/database.yml
+.idea
+config/database.yml
+coverage
+lib/tasks/ngrok.rake
