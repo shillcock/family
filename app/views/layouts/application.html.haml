@@ -9,5 +9,13 @@
     = csrf_meta_tags
   %body{class: page_class}
     = render "flashes"
+    #user_nav
+      - if current_user
+        Signed in as
+        = succeed "!" do
+          %strong= current_user.first_name
+        = link_to "Sign out", signout_path, id: "sign_out"
+      - else
+        = link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in"
     = yield
     = render "javascript"
