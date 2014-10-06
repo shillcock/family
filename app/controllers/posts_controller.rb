@@ -16,6 +16,11 @@ class PostsController < ApplicationController
     end
   end
 
+  def show
+    @post = Post.find(params[:id])
+    @comment = @post.comments.build(user: current_user)
+  end
+
   private
 
     def post_params

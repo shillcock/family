@@ -1,10 +1,11 @@
 %h1 Whats on your mind?
-= render "form"
+= render "form", post: @post
 
 %h1 Posts
 
 - @posts.each do |post|
   %p
+    = link_to post.id, [post]
     = post.content
     %br
     = "posted by #{post.user.first_name} on #{post.created_at}"
