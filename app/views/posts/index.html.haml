@@ -1,0 +1,11 @@
+%h1 Whats on your mind?
+= render "form"
+
+%h1 Posts
+
+- @posts.each do |post|
+  %p
+    = post.content
+    %br
+    = "posted by #{post.user.first_name} on #{post.created_at}"
+  %br

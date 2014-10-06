@@ -13,6 +13,7 @@ gem "active_model_serializers"
 gem "haml-rails"
 gem "passenger"
 gem "simple_form"
+gem "omniauth-facebook"
 
 group :development, :test do
   gem "byebug"
