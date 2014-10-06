@@ -14,8 +14,8 @@ test:
   <<: *default
   database: family_test
 
-production:
-  <<: *default
-  database: family_production
+#production:
+#  <<: *default
+#  database: family_production
 #  username: family
 #  password: <%= ENV['FAMILY_DATABASE_PASSWORD'] %>
