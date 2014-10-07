@@ -3,15 +3,14 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @post.comments.build(comment_params)
-    @comment.user = current_user
 
     if @comment.save
       flash[:notice] = "Comment has been created."
-      redirect_to [@post]
     else
       flash[:alert] = "Comment has not been created."
-      redirect_to [@post]
     end
+
+    redirect_to :back
   end
 
   private
@@ -21,6 +20,7 @@ class CommentsController < ApplicationController
     end
 
     def comment_params
-      params.require(:comment).permit(:content)
+      params.require(:comment).permit(:content).merge(user: current_user)
     end
 end
+

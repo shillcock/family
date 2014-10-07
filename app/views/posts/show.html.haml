@@ -2,4 +2,4 @@
 
 = render @post.comments
 
-= render "comments/form", post: @post, comment: @comment
+= render "comments/form", comment: @post.comments.build(user: current_user)

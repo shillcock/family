@@ -5,8 +5,7 @@
 
 - @posts.each do |post|
   %p
-    = link_to post.id, [post]
-    = post.content
-    %br
-    = "posted by #{post.user.first_name} on #{post.created_at}"
-  %br
+    = render post
+    = render post.comments
+    = render "comments/form", comment: post.comments.build(user: current_user)
+  %hr

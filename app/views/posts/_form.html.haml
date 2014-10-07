@@ -1,4 +1,4 @@
 = simple_form_for post do |f|
   = f.error_notification
-  = f.input :content
-  = f.button :submit, data: { disable_with: "Submitting post..." }
+  = f.input :content, label: false,  placeholder: "message", input_html: { rows: "5" }
+  = f.button :submit, data: { disable_with: "Submitting message..." }

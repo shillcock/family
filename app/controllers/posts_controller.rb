@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.all.order("created_at DESC")
+    @posts = Post.all.order("updated_at DESC")
     @post = current_user.posts.build
   end
 
@@ -9,16 +9,15 @@ class PostsController < ApplicationController
 
     if @post.save
       flash[:notice] = "Post has been created."
-      redirect_to posts_path
     else
       flash[:alert] = "Post has not been created."
-      redirect_to posts_path
     end
+
+    redirect_to :back
   end
 
   def show
     @post = Post.find(params[:id])
-    @comment = @post.comments.build(user: current_user)
   end
 
   private
