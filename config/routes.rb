@@ -6,8 +6,12 @@ Rails.application.routes.draw do
   resource :sign_in, only: [:show]
 
   resources :posts do
-    resources :comments
+    resources :comments do
+      resources :hearts, only: [:create]
+    end
+    resources :hearts, only: [:create]
   end
 
   root "posts#index"
 end
+

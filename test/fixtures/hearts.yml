@@ -1,0 +1,43 @@
+# == Schema Information
+#
+# Table name: hearts
+#
+#  id           :integer          not null, primary key
+#  lovable_id   :integer          not null
+#  lovable_type :string           not null
+#  user_id      :integer          not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+# Indexes
+#
+#  index_hearts_on_lovable_id_and_lovable_type  (lovable_id,lovable_type)
+#  index_hearts_on_user_id                      (user_id)
+#  index_hearts_on_user_id_and_lovable_id       (user_id,lovable_id)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lovable: 
+  lovable: 
+  lovable: 
+  lovable: 
+  lovable: 
+  lovable: 
+  lovable: 
+  lovable: 
+  lovable: 
+  user_id: 
+
+two:
+  lovable: 
+  lovable: 
+  lovable: 
+  lovable: 
+  lovable: 
+  lovable: 
+  lovable: 
+  lovable: 
+  lovable: 
+  user_id: 

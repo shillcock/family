@@ -14,10 +14,11 @@
 #
 
 class Post < ActiveRecord::Base
-  belongs_to :user
-  has_many :comments, as: :commentable
+  belongs_to :user, inverse_of: :posts
+  has_many :comments, -> { order(created_at: :asc) }, as: :commentable, dependent: :destroy
+  has_many :hearts, as: :lovable, dependent: :destroy
 
-
-  validates_presence_of :content
-  validates_presence_of :user
+  validates :user, presence: true
+  validates :content, presence: true
 end
+

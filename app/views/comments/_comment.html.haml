@@ -1,2 +1,4 @@
 %p
-  = "\t#{comment.id} : #{comment.user.first_name} : #{comment.content}"
+  = "comment-#{comment.id} : #{comment.user.first_name} : #{comment.content}"
+  = render comment.hearts
+  = button_to 'Love', [comment.commentable, comment, :hearts]

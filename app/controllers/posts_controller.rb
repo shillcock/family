@@ -8,9 +8,9 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
 
     if @post.save
-      flash[:notice] = "Post has been created."
+      flash[:notice] = "Post was successfully created."
     else
-      flash[:alert] = "Post has not been created."
+      flash[:alert] = "Post was not created."
     end
 
     redirect_to :back

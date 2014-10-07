@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141006031313) do
+ActiveRecord::Schema.define(version: 20141007154944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,18 @@ ActiveRecord::Schema.define(version: 20141006031313) do
 
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "hearts", force: true do |t|
+    t.integer  "lovable_id",   null: false
+    t.string   "lovable_type", null: false
+    t.integer  "user_id",      null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "hearts", ["lovable_id", "lovable_type"], name: "index_hearts_on_lovable_id_and_lovable_type", using: :btree
+  add_index "hearts", ["user_id", "lovable_id"], name: "index_hearts_on_user_id_and_lovable_id", using: :btree
+  add_index "hearts", ["user_id"], name: "index_hearts_on_user_id", using: :btree
 
   create_table "posts", force: true do |t|
     t.text     "content",    null: false
@@ -48,5 +60,7 @@ ActiveRecord::Schema.define(version: 20141006031313) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "users", ["email"], name: "index_users_on_email", using: :btree
 
 end

@@ -13,12 +13,17 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_users_on_email  (email)
+#
 
 class User < ActiveRecord::Base
-  has_many :posts
+  has_many :posts, inverse_of: :user
   has_many :comments
+  has_many :hearts
 
-  validates_presence_of :email
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
 
   def self.from_omniauth(auth)
     if user = find_by(email: auth.info.email)

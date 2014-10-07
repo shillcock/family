@@ -1,6 +1,5 @@
 %p
-  = post.id
-  = ":"
-  = post.user.first_name
-  = ":"
-  = post.content
+  = "post-#{post.id} : #{post.user.first_name} : #{post.content}"
+  = render post.hearts
+  = button_to 'Love', [post, :hearts]
+  = render post.comments

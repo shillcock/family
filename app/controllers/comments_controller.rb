@@ -5,9 +5,9 @@ class CommentsController < ApplicationController
     @comment = @post.comments.build(comment_params)
 
     if @comment.save
-      flash[:notice] = "Comment has been created."
+      flash[:notice] = "Comment was successfully created."
     else
-      flash[:alert] = "Comment has not been created."
+      flash[:alert] = "Comment was not created."
     end
 
     redirect_to :back

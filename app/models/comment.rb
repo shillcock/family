@@ -17,12 +17,12 @@
 #
 
 class Comment < ActiveRecord::Base
-  belongs_to :commentable, polymorphic: true
+  belongs_to :commentable, polymorphic: true, touch: true
   belongs_to :user
+  has_many :hearts, as: :lovable
 
-  validates_presence_of :content
-  validates_presence_of :commentable_id, :commentable_type
-
-  after_create -> { commentable.touch() }
+  validates :content, presence: true
+  validates :commentable, presence: true
+  validates :user, presence: true
 end
 
