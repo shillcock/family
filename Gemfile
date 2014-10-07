@@ -16,6 +16,7 @@ gem "passenger"
 gem "simple_form"
 gem "omniauth-facebook"
 gem "skylight"
+gem "newrelic_rpm"
 
 group :development, :test do
   gem "byebug"
