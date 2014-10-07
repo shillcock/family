@@ -1,10 +1,7 @@
-%h1 Whats on your mind?
 = render "form", post: @post
 
-%h1 Posts
+%hr
 
-- @posts.each do |post|
-  %p
-    = render post
-    = render "comments/form", comment: post.comments.build(user: current_user)
-  %hr
+#posts
+  = render @posts
+

@@ -1,4 +1,8 @@
-%p
-  = "comment-#{comment.id} : #{comment.user.first_name} : #{comment.content}"
-  = render comment.hearts
-  = button_to 'Love', [comment.commentable, comment, :hearts]
+.comment[comment]
+  %div{id: "#{dom_id(comment)}_content"}
+    %p
+      = "==== #{dom_id(comment)} : #{comment.user.first_name} : #{comment.content}"
+
+  %div{id: "#{dom_id(comment)}_hearts"}
+    = render comment.hearts
+  = button_to 'Love', [comment.commentable, comment, :hearts], remote: true

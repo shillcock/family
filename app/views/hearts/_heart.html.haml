@@ -1,2 +1,2 @@
-%p
-  = "heart-#{heart.id} : #{heart.user.first_name} loves this"
+.heart[heart]
+  %p= "#{dom_id(heart)} : #{heart.user.first_name} loves this"

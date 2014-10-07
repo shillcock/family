@@ -1,4 +1,4 @@
-= simple_form_for post do |f|
+= simple_form_for post, remote: true do |f|
   = f.error_notification
-  = f.input :content, label: false,  placeholder: "message", input_html: { rows: "5" }
-  = f.button :submit, data: { disable_with: "Submitting message..." }
+  = f.input :content, label: false,  placeholder: "Whats on your mind?", input_html: { rows: "5" }
+  = f.button :submit, data: { disable_with: "Submitting..." }

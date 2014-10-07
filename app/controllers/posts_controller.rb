@@ -5,15 +5,12 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.build(post_params)
+    @post = current_user.posts.create!(post_params)
 
-    if @post.save
-      flash[:notice] = "Post was successfully created."
-    else
-      flash[:alert] = "Post was not created."
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js
     end
-
-    redirect_to :back
   end
 
   def show

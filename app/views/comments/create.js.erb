@@ -1,0 +1,5 @@
+$("#<%= dom_id(@comment.commentable) %>_comments").append("<%= j render @comment %>");
+$("#<%= dom_id(@comment) %>_content").effect("highlight", {}, 3000)
+
+$("#<%= dom_id(@comment.commentable) %>_new_comment")[0].reset()
+

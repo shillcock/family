@@ -1,5 +1,13 @@
-%p
-  = "post-#{post.id} : #{post.user.first_name} : #{post.content}"
-  = render post.hearts
-  = button_to 'Love', [post, :hearts]
-  = render post.comments
+.post[post]
+  %div{id: "#{dom_id(post)}_content"}
+    %p= "#{dom_id(post)} : #{post.user.first_name} : #{post.content}"
+
+  %div{id: "#{dom_id(post)}_hearts"}
+    = render post.hearts
+  = button_to 'Love', [post, :hearts], remote: true
+
+  %div{id: "#{dom_id(post)}_comments"}
+    = render post.comments
+  = render "comments/form", comment: post.comments.build(user: current_user)
+%hr
+

@@ -3,21 +3,18 @@ class HeartsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = @post.comments.find_by_id(params[:comment_id])
 
-    @heart = build_a_heart
+    @heart = create_a_heart
 
-    if @heart.save
-      flash[:notice] = "Heart was successfully created."
-    else
-      flash[:error] = "Heart was not created."
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js
     end
-
-    redirect_to :back
   end
 
   private
 
-    def build_a_heart
+    def create_a_heart
       target = @comment || @post
-      target.hearts.build(user: current_user)
+      target.hearts.create!(user: current_user)
     end
 end
