@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
   private
 
     def url_after_create
-      analytics.track_user_sign_in
+      analytics.track_user_sign_in if current_user
       root_path
     end
 

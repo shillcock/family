@@ -3,6 +3,10 @@
     = button_to "Delete", [post], remote: true, method: :delete
     = "#{dom_id(post)} : #{post.user.first_name} : #{post.content}"
 
+  .post_image
+    - post.photos.each do |photo|
+      = image_tag photo.image_url(:bright_face)
+
   .post_hearts
     = render post.hearts
 

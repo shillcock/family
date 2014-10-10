@@ -17,6 +17,9 @@ class Post < ActiveRecord::Base
   belongs_to :user, inverse_of: :posts
   has_many :comments, -> { order(created_at: :asc) }, as: :commentable, dependent: :destroy
   has_many :hearts, as: :lovable, dependent: :destroy
+  has_many :photos, as: :photoable, dependent: :destroy
+
+  accepts_nested_attributes_for :photos, allow_destroy: true
 
   validates :user, presence: true
   validates :content, presence: true

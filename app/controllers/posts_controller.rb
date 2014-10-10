@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :destroy]
+
   def index
     @posts = Post.all.order("updated_at DESC")
     @post = current_user.posts.build
@@ -39,7 +40,7 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:content)
+      params.require(:post).permit(:content, photos_attributes: [:image])
     end
 end
 

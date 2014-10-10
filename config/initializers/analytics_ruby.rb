@@ -1,4 +1,6 @@
-AnalyticsRuby = Segment::Analytics.new({
-  write_key: ENV["SEGMENT_IO_KEY"],
-  on_error: Proc.new { |status, msg| print msg }
-})
+if ENV["SEGMENT_IO_KEY"]
+  AnalyticsRuby = Segment::Analytics.new({
+    write_key: ENV["SEGMENT_IO_KEY"],
+    on_error: Proc.new { |status, msg| print msg }
+  })
+end

@@ -11,7 +11,7 @@ class Analytics
     identify
     track(
       {
-        user_id: user.uid,
+        user_id: user.id,
         event: "Create User",
         properties: {
           first_name: user.first_name,
@@ -28,7 +28,7 @@ class Analytics
     identify
     track(
       {
-        user_id: user.uid,
+        user_id: user.id,
         event: "Create Sign In"
       }
     )
@@ -38,7 +38,7 @@ class Analytics
     identify
     track(
       {
-        user_id: user.uid,
+        user_id: user.id,
         event: "User Posted",
         properties: {
           post_id: post.id
@@ -51,7 +51,7 @@ class Analytics
     identify
     track(
       {
-        user_id: user.uid,
+        user_id: user.id,
         event: "User Commented",
         properties: {
           comment_id: comment.id
@@ -70,7 +70,7 @@ class Analytics
 
     def identify_params
       {
-        user_id: user.uid,
+        user_id: user.id,
         traits: user_traits
       }
     end
