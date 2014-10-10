@@ -1,9 +1,18 @@
 class HeartsController < ApplicationController
-  def create
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.find_by_id(params[:comment_id])
+  before_action :set_lovable, only: [:create, :destroy]
+  before_action :set_heart, only: [:destroy]
 
+  def create
     @heart = create_a_heart
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js
+    end
+  end
+
+  def destroy
+    @heart.destroy if @heart.user == current_user
 
     respond_to do |format|
       format.html { redirect_to :back }
@@ -13,8 +22,16 @@ class HeartsController < ApplicationController
 
   private
 
+    def set_lovable
+      @lovable = Post.find_by_id(params[:post_id]) || Comment.find_by_id(params[:comment_id])
+    end
+
+    def set_heart
+      @heart = @lovable.hearts.find(params[:id])
+    end
+
     def create_a_heart
-      target = @comment || @post
-      target.hearts.create!(user: current_user)
+      @lovable.hearts.create!(user: current_user)
     end
 end
+

@@ -16,7 +16,8 @@ gem "passenger"
 gem "simple_form"
 gem "omniauth-facebook"
 gem "skylight"
-gem "newrelic_rpm"
+gem "newrelic_rpm", "~> 3.9.5"
+gem "analytics-ruby", "~> 2.0.10", require: "segment/analytics"
 
 group :development, :test do
   gem "byebug"
@@ -37,3 +38,4 @@ end
 group :test do
   gem "codeclimate-test-reporter", require: nil
 end
+

@@ -20,5 +20,9 @@ class ApplicationController < ActionController::Base
       @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
     end
     helper_method :current_user
+
+    def analytics
+      @analytics ||= Analytics.new(current_user)
+    end
 end
 

@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   def create
     user = User.from_omniauth(auth_params)
     session[:user_id] = user.id if user
-    redirect_to root_url
+    redirect_to url_after_create
   end
 
   def destroy
@@ -13,6 +13,11 @@ class SessionsController < ApplicationController
   end
 
   private
+
+    def url_after_create
+      analytics.track_user_sign_in
+      root_path
+    end
 
     def auth_params
       request.env["omniauth.auth"]

@@ -1,8 +1,11 @@
 .comment[comment]
-  %div{id: "#{dom_id(comment)}_content"}
-    %p
-      = "==== #{dom_id(comment)} : #{comment.user.first_name} : #{comment.content}"
+  .comment_content
+    = button_to "X", [comment.commentable, comment], remote: true, method: :delete
+    = "==== #{dom_id(comment)} : #{comment.user.first_name} : #{comment.content}"
 
-  %div{id: "#{dom_id(comment)}_hearts"}
+  .comment_hearts
     = render comment.hearts
-  = button_to 'Love', [comment.commentable, comment, :hearts], remote: true
+
+  .comment_love
+    = render "hearts/love_button", lovable: comment
+

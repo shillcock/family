@@ -43,4 +43,13 @@ class User < ActiveRecord::Base
     self.image = auth.info.image
     self.save!
   end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  def loves?(post)
+    post.hearts.where(user: self).any?
+  end
 end
+

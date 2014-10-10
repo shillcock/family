@@ -1,9 +1,6 @@
 var lovable_id = "#<%= dom_id(@heart.lovable) %>";
 var lovable_class = ".<%= dom_class(@heart.lovable) %>";
 
-$(lovable_id).find(lovable_class + "_hearts").append("<%= j render @heart %>");
-
-$("#<%= dom_id(@heart) %>").effect("highlight", {}, 3000)
-
+$("#<%= dom_id(@heart) %>").remove()
 $(lovable_id).find(lovable_class + "_love").html("<%= j render 'hearts/love_button', lovable: @heart.lovable %>")
 

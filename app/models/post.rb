@@ -20,5 +20,9 @@ class Post < ActiveRecord::Base
 
   validates :user, presence: true
   validates :content, presence: true
+
+  def loved_by?(user)
+    hearts.where(user: user).any?
+  end
 end
 

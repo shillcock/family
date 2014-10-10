@@ -1,13 +1,19 @@
 .post[post]
-  %div{id: "#{dom_id(post)}_content"}
-    %p= "#{dom_id(post)} : #{post.user.first_name} : #{post.content}"
+  .post_content
+    = button_to "Delete", [post], remote: true, method: :delete
+    = "#{dom_id(post)} : #{post.user.first_name} : #{post.content}"
 
-  %div{id: "#{dom_id(post)}_hearts"}
+  .post_hearts
     = render post.hearts
-  = button_to 'Love', [post, :hearts], remote: true
 
-  %div{id: "#{dom_id(post)}_comments"}
+  .post_love
+    = render "hearts/love_button", lovable: post
+
+  .post_comments
     = render post.comments
-  = render "comments/form", comment: post.comments.build(user: current_user)
-%hr
+
+  .post_reply
+    = render "comments/form", comment: post.comments.build(user: current_user)
+
+  %hr
 
