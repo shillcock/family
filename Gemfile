@@ -19,9 +19,9 @@ gem "skylight"
 gem "newrelic_rpm", "~> 3.9.5"
 gem "analytics-ruby", "~> 2.0.10", require: "segment/analytics"
 gem "remotipart", "~> 1.2.1"
-#gem "rmagick", require: "RMagick"
+gem "rmagick", require: "RMagick"
 gem "carrierwave", "~> 0.10.0"
-gem "cloudinary", "~> 1.0.77"
+#gem "cloudinary", "~> 1.0.77"
 
 group :development, :test do
   gem "byebug"
