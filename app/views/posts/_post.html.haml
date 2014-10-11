@@ -5,7 +5,7 @@
 
   .post_image
     - post.photos.each do |photo|
-      = image_tag view_photo_path(photo, version: "thumbnail")
+      = image_tag view_photo_path(photo, version: params[:version] || :small)
 
   .post_hearts
     = render post.hearts

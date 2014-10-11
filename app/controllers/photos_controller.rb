@@ -2,11 +2,11 @@ class PhotosController < ApplicationController
   before_action :set_photo
 
   def download
-    send_file photo_path, x_sendfile: true
+    redirect_to photo_path
   end
 
   def view
-    send_file photo_path, disposition: "inline"
+    redirect_to photo_path
   end
 
   private
