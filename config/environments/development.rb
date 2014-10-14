@@ -41,5 +41,11 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost:5000' }
 
-  config.web_console.automount = true
+  # config.web_console.automount = true
+
+  config.middleware.use Rack::TwilioWebhookAuthentication,
+                        ENV["TWILIO_AUTH_TOKEN"],
+                        ENV["TWILIO_VOICE_REQUEST_URL"],
+                        ENV["TWILIO_MESSAGING_REQUEST_URL"]
 end
+

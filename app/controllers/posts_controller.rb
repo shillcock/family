@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :destroy]
 
   def index
-    @posts = Post.all.order("updated_at DESC")
+    @posts = Post.order("updated_at DESC").page(params[:page]).per(10)
     @post = current_user.posts.build
   end
 
@@ -10,6 +10,8 @@ class PostsController < ApplicationController
     @post = current_user.posts.create!(post_params)
 
     track_post
+
+    #notify_users
 
     respond_to do |format|
       format.html { redirect_to :back }
@@ -37,6 +39,15 @@ class PostsController < ApplicationController
 
     def track_post
       analytics.track_user_post(@post)
+    end
+
+    def notify_users
+      #message = twilio.messages.create(
+      #  from: twilio_number,
+      #  to: '8312776362',
+      #  body: "[#{@post.id}] #{@post.content}",
+      #  media_url: "http://twilio.com/heart.jpg"
+      #)
     end
 
     def post_params

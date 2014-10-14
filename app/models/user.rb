@@ -2,20 +2,22 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  email      :string           not null
-#  first_name :string
-#  last_name  :string
-#  birthday   :date
-#  image      :string
-#  provider   :string
-#  uid        :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id               :integer          not null, primary key
+#  email            :string           not null
+#  first_name       :string
+#  last_name        :string
+#  birthday         :date
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  phone_number     :string           not null
+#  auth_token       :string           not null
+#  sms_token        :string
+#  sms_confirmed_at :datetime
 #
 # Indexes
 #
-#  index_users_on_email  (email)
+#  index_users_on_email         (email)
+#  index_users_on_phone_number  (phone_number) UNIQUE
 #
 
 class User < ActiveRecord::Base
@@ -24,25 +26,11 @@ class User < ActiveRecord::Base
   has_many :hearts
 
   validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :phone_number, presence: true, uniqueness: { case_sensitive: false }
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 
-  def self.from_omniauth(auth)
-    if user = find_by(email: auth.info.email)
-      user.update_from_omniauth(auth)
-      user
-    else
-      User.new
-    end
-  end
-
-  def update_from_omniauth(auth)
-    self.provider = auth.provider
-    self.uid = auth.uid
-    self.first_name = auth.info.first_name
-    self.last_name = auth.info.last_name
-    self.email = auth.info.email
-    self.image = auth.info.image
-    self.save!
-  end
+  before_create { generate_token(:auth_token) }
 
   def full_name
     "#{first_name} #{last_name}"
@@ -51,5 +39,24 @@ class User < ActiveRecord::Base
   def loves?(post)
     post.hearts.where(user: self).any?
   end
+
+  def sms_confirmed?
+    !!sms_confirmed_at
+  end
+
+  def generate_sms_token!
+    self.sms_confirmed_at = nil
+    generate_token(:sms_token)
+    save!
+  end
+
+  private
+
+    def generate_token(column)
+      begin
+        token = SecureRandom.urlsafe_base64
+        self[column] = Digest::SHA1.hexdigest(token).to_s
+      end while User.exists?(column => self[column])
+    end
 end
 

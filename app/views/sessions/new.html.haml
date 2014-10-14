@@ -1,0 +1,6 @@
+%h1 Family Portal
+
+= simple_form_for :user, url: sessions_path do |f|
+  = f.input :phone_number, label: false, placeholder: "You are precious!"
+  = f.submit "Sign in with <3"
+

@@ -10,10 +10,17 @@
 |
 = link_to "x3", root_path(version: :x3large)
 
+%br
+%br
 = render "form", post: @post
+
+%br
+= paginate @posts
 
 %hr
 
 #posts
   = render @posts
 
+%br
+= paginate @posts

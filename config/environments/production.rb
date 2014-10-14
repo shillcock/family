@@ -86,4 +86,11 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_mailer.default_url_options = { host: "family.shillcock.net" }
+
+  # twilio webhook authentication middleware
+  config.middleware.use Rack::TwilioWebhookAuthentication,
+                        ENV["TWILIO_AUTH_TOKEN"],
+                        ENV["TWILIO_VOICE_REQUEST_URL"],
+                        ENV["TWILIO_MESSAGING_REQUEST_URL"]
 end
+
