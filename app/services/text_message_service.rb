@@ -9,6 +9,7 @@ class TextMessageService
     rescue Twilio::REST::RequestError => error_message
       error_message.to_s
     else
+      Rollbar.report_message("Text message sent to #{to}")
       "success"
     end
   end

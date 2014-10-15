@@ -32,12 +32,20 @@ class User < ActiveRecord::Base
 
   before_create { generate_token(:auth_token) }
 
-  def full_name
-    "#{first_name} #{last_name}"
+  def name
+    "#{first_name} #{last_name}".strip
   end
 
-  def loves?(post)
-    post.hearts.where(user: self).any?
+  def to_s
+    name
+  end
+
+  def love(lovable)
+    self.hearts.create(lovable: lovable) unless hearts.exists?(lovable: lovable)
+  end
+
+  def loves?(lovable)
+    lovable.hearts.exists?(user: self)
   end
 
   def sms_confirmed?

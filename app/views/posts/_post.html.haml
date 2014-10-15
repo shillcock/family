@@ -1,7 +1,8 @@
 .post[post]
   .post_content
     = button_to "Delete", [post], remote: true, method: :delete
-    = "==== #{dom_id(post)} : #{post.user.first_name} : #{post.content}"
+    = "==== #{dom_id(post)} : #{post.user.first_name} : "
+    = post.content
 
   .post_image
     - post.photos.each do |photo|
@@ -17,7 +18,7 @@
     = render post.comments
 
   .post_reply
-    = render "comments/form", comment: post.comments.build(user: current_user)
+    = render "comments/form", comment: post.build_comment(current_user)
 
   %hr
 

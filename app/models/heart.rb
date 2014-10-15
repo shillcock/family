@@ -21,6 +21,6 @@ class Heart < ActiveRecord::Base
   belongs_to :user
 
   validates :lovable, presence: true
-  validates :user, presence: true,  uniqueness: { scope: [:lovable_id, :lovable_type] }
+  validates :user_id, presence: true, uniqueness: { scope: [:lovable_id, :lovable_type] }
 end
 

@@ -24,5 +24,7 @@ class Comment < ActiveRecord::Base
   validates :content, presence: true
   validates :commentable, presence: true
   validates :user, presence: true
+
+  scope :sorted, -> { order(created_at: :asc) }
 end
 

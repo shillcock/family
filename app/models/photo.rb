@@ -16,6 +16,11 @@
 
 class Photo < ActiveRecord::Base
   belongs_to :photoable, polymorphic: true
+  has_many :hearts, as: :lovable, dependent: :destroy
 
   mount_uploader :image, ImageUploader
+
+  def loved_by?(user)
+    hearts.exists?(user: user)
+  end
 end

@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :destroy]
 
   def index
-    @posts = Post.order("updated_at DESC").page(params[:page]).per(10)
+    @posts = Post.sorted.page(params[:page]).per(10).decorate
     @post = current_user.posts.build
   end
 

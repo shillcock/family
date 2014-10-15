@@ -2,7 +2,8 @@
 .comment[comment]
   .comment_content
     = button_to "Delete", [comment.commentable, comment], remote: true, method: :delete
-    = "---- #{dom_id(comment)} : #{comment.user.first_name} : #{comment.content}"
+    = "---- #{dom_id(comment)} : #{comment.user.first_name} :"
+    = comment.content
 
   .comment_hearts
     = render comment.hearts
