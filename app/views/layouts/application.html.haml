@@ -4,16 +4,14 @@
     %meta{:charset => "utf-8"}/
     %meta{:content => "NOODP", :name => "ROBOTS"}/
     %meta{:content => "initial-scale=1", :name => "viewport"}/
-    %title The Shillcock Family Portal
+    %title= content_for?(:title) ? yield(:title) : "The Shillcock Family Portal"
     = stylesheet_link_tag "application", media: "all"
     = csrf_meta_tags
-  %body{class: page_class}
-    = render "flashes"
-    #user_nav
-      - if signed_in?
-        Signed in as
-        = succeed "!" do
-          %strong= current_user.first_name
-        = link_to "Sign out", sign_out_path, id: "sign_out"
-    = yield
+  %body.page-body{class: page_class}
+    %header
+      = render "navigation"
+    %main{role: "main"}
+      = render "flashes"
+      = yield
     = render "javascript"
+
