@@ -36,6 +36,10 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}".strip
   end
 
+  def avatar
+    gravatar_image_tag(self)
+  end
+
   def to_s
     name
   end

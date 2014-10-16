@@ -15,7 +15,10 @@
 = render "form", post: @post
 
 %br
-= paginate @posts
+
+%secion.user-timeline-stories
+  = paginate @posts
+
 
 %hr
 
