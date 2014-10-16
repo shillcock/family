@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   # posts
-  resources :posts, concerns: :lovable, only: [:index, :create, :destroy] do
+  resources :posts, concerns: :lovable, only: [:index, :create, :show, :destroy] do
     #comments
     resources :comments, only: [:create, :destroy]
   end

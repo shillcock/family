@@ -1,13 +1,14 @@
 class ImageUploader < CarrierWave::Uploader::Base
 
-  include CarrierWave::RMagick
+  include CarrierWave::MiniMagick
 
   storage :fog
 
   def store_dir
     # photos/2014/02
     dir = "#{model_dir}/#{Date.today.strftime("%Y/%m")}"
-    dir.prepend("#{Rails.env}/") unless Rails.env.production?
+    #dir.prepend("#{Rails.env}/") unless Rails.env.production?
+    dir
   end
 
   # def filename
@@ -25,7 +26,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :x3large do
-    process :resize_to_fit => [1600, 1200]
+    process :resize_to_limit => [1600, 1200]
 
     def full_filename(for_file = model.image.file)
       build_name(:x3large)
@@ -33,7 +34,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :x2large do
-    process :resize_to_fit => [1280, 960]
+    process :resize_to_limit => [1280, 960]
 
     def full_filename(for_file = model.image.file)
       build_name(:x2large)
@@ -41,7 +42,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :xlarge do
-    process :resize_to_fit => [1024, 768]
+    process :resize_to_limit => [1024, 768]
 
     def full_filename(for_file = model.image.file)
       build_name(:xlarge)
@@ -49,7 +50,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :large do
-    process :resize_to_fit => [800, 600]
+    process :resize_to_limit => [800, 600]
 
     def full_filename(for_file = model.image.file)
       build_name(:large)
@@ -57,7 +58,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
    version :medium do
-    process :resize_to_fit => [600, 450]
+    process :resize_to_limit => [600, 450]
 
     def full_filename(for_file = model.image.file)
       build_name(:medium)
@@ -65,7 +66,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
    version :small do
-    process :resize_to_fit => [400, 300]
+    process :resize_to_limit => [400, 300]
 
     def full_filename(for_file = model.image.file)
       build_name(:small)
@@ -94,7 +95,7 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   private
     def build_name(version)
-      "#{model.id}-#{version}.#{model.image.file.extension}"
+      "#{model.id.to_s.rjust(3, '0')}-#{version}.#{model.image.file.extension}"
     end
 
     def model_dir

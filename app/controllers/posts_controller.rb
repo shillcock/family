@@ -2,7 +2,8 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :destroy]
 
   def index
-    @posts = Post.sorted.page(params[:page]).per(10).decorate
+    #@posts = Post.sorted.page(params[:page]).per(10).decorate
+    @posts = Post.order(id: :asc).page(params[:page]).per(10).decorate
     @post = current_user.posts.build
   end
 
@@ -20,6 +21,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = Post.find(params[:id]).decorate
   end
 
   def destroy

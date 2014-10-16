@@ -1,10 +1,13 @@
 .post[post]
   .post_content
     = button_to "Delete", [post], remote: true, method: :delete
-    = "==== #{dom_id(post)} : #{post.user.first_name} : "
+    = "==== "
+    = link_to dom_id(post), post
+    = " ===="
+    = "#{post.user.first_name} : #{post.updated_at}"
     = post.content
 
-  .post_image
+  .post_images
     - post.photos.each do |photo|
       = image_tag view_photo_path(photo, version: params[:version] || :small)
 

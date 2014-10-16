@@ -5,6 +5,10 @@
     = "---- #{dom_id(comment)} : #{comment.user.first_name} :"
     = comment.content
 
+  .comment_images
+    - comment.photos.each do |photo|
+      = image_tag view_photo_path(photo, version: params[:version] || :small)
+
   .comment_hearts
     = render comment.hearts
 
