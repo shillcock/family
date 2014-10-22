@@ -1,6 +1,6 @@
-%h1 Family Portal
+%h1 Familyboard
 
 = simple_form_for :user, url: sessions_path do |f|
   = f.input :phone_number, label: false, placeholder: "You are precious!"
-  = f.submit "Sign in with <3"
+  = f.submit "Sign in with <3", class: "btn btn-success"
 

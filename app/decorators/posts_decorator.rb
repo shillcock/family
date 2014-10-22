@@ -1,2 +1,0 @@
-class PostsDecorator < PageableDecorator
-end
