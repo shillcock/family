@@ -2,8 +2,8 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :destroy]
 
   def index
-    #@posts = Post.sorted.page(params[:page]).per(10).decorate
-    @posts = Post.order(id: :asc).page(params[:page]).per(10).decorate
+    @posts = Post.sorted.page(params[:page]).per(10)
+    #@posts = Post.order(id: :asc).page(params[:page]).page(5)
     @post = current_user.posts.build
   end
 
@@ -21,14 +21,14 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id]).decorate
+    @post = Post.find(params[:id])
   end
 
   def destroy
-    @post.destroy if @post.user == current_user
+    @post.destroy # if @post.user == current_user
 
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_to posts_path }
       format.js
     end
   end

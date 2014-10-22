@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
   # comments
-  resources :comments, concerns: :lovable, only: []
+  resources :comments, concerns: :lovable, only: [:destroy]
 
   # photos
   resources :photos, only: [:index, :show] do
@@ -28,9 +28,13 @@ Rails.application.routes.draw do
     end
   end
 
+  # resources :users, only: [:show]
+
   # twilio webhooks
   post "/voice", to: "comms#voice"
   post "/sms", to: "comms#sms"
+
+  get "/:id", to: "users#show", as: :user
 
   # default to posts index
   root "posts#index"

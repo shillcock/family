@@ -14,4 +14,6 @@
 //= require jquery_ujs
 //= require jquery-ui/effect-highlight
 //= require bootstrap-sprockets
+//= require jquery.readyselector
+//= require_tree .
 

@@ -1,6 +1,5 @@
 var lovable_id = "#<%= dom_id(@heart.lovable) %>";
 var lovable_class = ".<%= dom_class(@heart.lovable) %>";
 
-$("#<%= dom_id(@heart) %>").remove()
-$(lovable_id).find(lovable_class + "_love").html("<%= j render 'hearts/love_button', lovable: @heart.lovable %>")
+$(lovable_id).find(lovable_class + "_actions").html("<%= j render "shared/actions", lovable: @heart.lovable %>");
 

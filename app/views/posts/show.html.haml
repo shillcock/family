@@ -1,2 +1,6 @@
-= render @post
-
+.section
+  .col-xs-12.col-sm-offset-2.col-sm-8
+    = render @post
+  .col-xs-12.col-sm-offset-2.col-sm-8
+    %br
+    = button_to "Delete", @post, method: :delete, class: "btn btn-danger btn-block"

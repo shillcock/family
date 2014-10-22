@@ -1,0 +1,7 @@
+%ul.inline-list
+  %li
+    = render "hearts/love_button", lovable: lovable
+  - if lovable.hearts.any?
+    - lovable.hearts.each do |heart|
+      %li= image_tag heart.user_avatar(20), class: "avatar"
+

@@ -20,7 +20,17 @@ class Photo < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
 
+  scope :random, -> { order("RANDOM()") }
+
   def loved_by?(user)
     hearts.exists?(user: user)
+  end
+
+  def user_avatar(size = nil)
+    user.avatar_url(size)
+  end
+
+  def user_name
+    user.name
   end
 end

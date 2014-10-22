@@ -1,13 +1,18 @@
 !!!
-%html
+%html{lang: "en"}
   %head
-    %meta{:charset => "utf-8"}/
-    %meta{:content => "NOODP", :name => "ROBOTS"}/
-    %meta{:content => "initial-scale=1", :name => "viewport"}/
-    %title= content_for?(:title) ? yield(:title) : "The Shillcock Family Portal"
+    %meta{:charset => "utf-8"}
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}
+    %meta{:content => "width=device-width, initial-scale=1.0", name: "viewport"}
+    %meta{:content => "NOODP", :name => "ROBOTS"}
+    %title= content_for?(:title) ? yield(:title) : "Family"
     = stylesheet_link_tag "application", media: "all"
+    / HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
+    /[if lt IE 9]
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     = csrf_meta_tags
-  %body.page-body{class: page_class}
+  %body{class: page_class}
     %header
       = render "navigation"
     %main{role: "main"}

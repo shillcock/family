@@ -33,15 +33,15 @@ class User < ActiveRecord::Base
   before_create { generate_token(:auth_token) }
 
   def name
-    "#{first_name} #{last_name}".strip
+    first_name
   end
 
-  def avatar
-    gravatar_image_tag(self)
+  def avatar_url(size = nil)
+    GravatarService.new(self).image_url(size)
   end
 
-  def to_s
-    name
+  def to_param
+    first_name.parameterize
   end
 
   def love(lovable)

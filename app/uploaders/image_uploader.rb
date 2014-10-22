@@ -73,6 +73,14 @@ class ImageUploader < CarrierWave::Uploader::Base
     end
   end
 
+  version :square do
+    process :resize_to_fit => [250, 250]
+
+    def full_filename(for_file = model.image.file)
+      build_name(:square)
+    end
+  end
+
   version :thumbnail do
     process :resize_to_fit => [150, 150]
 

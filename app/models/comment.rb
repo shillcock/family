@@ -35,5 +35,13 @@ class Comment < ActiveRecord::Base
   def loved_by?(user)
     hearts.exists?(user: user)
   end
+
+  def user_avatar(size = nil)
+    user.avatar_url(size)
+  end
+
+  def user_name
+    user.name
+  end
 end
 

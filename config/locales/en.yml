@@ -5,7 +5,6 @@ en:
         "%m/%d/%Y"
       with_weekday:
         "%a %m/%d/%y"
-
   time:
     formats:
       default:
@@ -14,3 +13,8 @@ en:
         "%b %-d, %Y"
       short:
         "%B %d"
+  views:
+    pagination:
+      previous: "&lt; Prev"
+      next: "Next &gt;"
+

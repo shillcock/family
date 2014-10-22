@@ -1,58 +1,22 @@
-%article.timeline-story
-  %header
-    = link_to "#", class: "user-img" do
-      = post.user_gravatar(50)
-    .user-details
-      = link_to post.user.name, "#"
-      posted a status
-      = link_to "update", post
-      = '.'
-    %time
-      = post.posted_at
-  .story-content
-    %p
-      = post.content
-    - if post.photos
-      .story-album
-        - post.photos.each do |photo|
-          = image_tag view_photo_path(photo, version: params[:version] || :small)
-    .story-options-links
-      = link_to "#" do
-        = "love"
-        %span= "(#{post.hearts.count})"
-      = link_to "#" do
-        = "comments"
-        %span= "(#{post.comments.count})"
-    %ul.story-comments.list-unstyled
-      - post.comments.each do |comment|
-        %li
-          = render "comment", comment: comment
-    = render "comments/form", comment: post.build_comment(current_user)
-
--#.post[post]
--#  .post_content
--#    = button_to "Delete", [post], remote: true, method: :delete
--#    = "==== "
--#    = link_to dom_id(post), post
--#    = " ===="
--#    = "#{post.user.first_name} : #{post.updated_at}"
--#    = post.content
--#
--#  .post_images
--#    - post.photos.each do |photo|
--#      = image_tag view_photo_path(photo, version: params[:version] || :small)
--#
--#  .post_hearts
--#    = render post.hearts
--#
--#  .post_love
--#    = render "hearts/love_button", lovable: post
--#
--#  .post_comments
--#    = render post.comments
--#
--#  .post_reply
--#    = render "comments/form", comment: post.build_comment(current_user)
--#
--#  %hr
+.post[post]
+  = link_to post.user, class: "pull-left" do
+    = image_tag post.user_avatar(45), class: "avatar"
+  .post_body
+    %h4.media-heading
+      = link_to post.user_name, post.user
+      %small
+        = "#{time_ago_in_words(post.created_at)} ago"
+        = link_to post do
+          = post.id
+          /-
+          %span.glyphicon.glyphicon-link
+    %p= markdown(post.content)
+    .post_photos
+      = render post.photos
+    .post_actions
+      = render "shared/actions", lovable: post
+  .post_comments
+    -#= render post.comments
+  .post_reply
+    = render "comments/form", comment: post.comments.build(user: current_user)
 

@@ -1,16 +1,14 @@
-%br
 .comment[comment]
-  .comment_content
-    = button_to "Delete", [comment.commentable, comment], remote: true, method: :delete
-    = "---- #{dom_id(comment)} : #{comment.user.first_name} :"
-    = comment.content
+  = link_to comment.user, class: "pull-left" do
+    = image_tag comment.user_avatar(30), class: "avatar"
+  .comment_body
+    %h5.media-heading
+      = link_to comment.user_name, comment.user
+      %small
+        = "#{time_ago_in_words(comment.created_at)} ago"
+    %p= markdown(comment.content)
+    .comment_photos
+      = render comment.photos
+    .comment_actions
+      = render "shared/actions", lovable: comment
 
-  .comment_images
-    - comment.photos.each do |photo|
-      = image_tag view_photo_path(photo, version: params[:version] || :small)
-
-  .comment_hearts
-    = render comment.hearts
-
-  .comment_love
-    = render "hearts/love_button", lovable: comment

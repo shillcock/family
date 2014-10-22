@@ -1,0 +1,2 @@
+class PhotosDecorator < PageableDecorator
+end
