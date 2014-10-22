@@ -5,18 +5,18 @@
     %h4.media-heading
       = link_to post.user_name, post.user
       %small
-        = "#{time_ago_in_words(post.created_at)} ago"
+        = "#{time_ago_in_words(post.created_at)} ago - "
         = link_to post do
-          = post.id
-          /-
           %span.glyphicon.glyphicon-link
-    %p= markdown(post.content)
+          = post.id
+    .post_content
+      %p= markdown(post.content)
     .post_photos
       = render post.photos
     .post_actions
       = render "shared/actions", lovable: post
   .post_comments
-    -#= render post.comments
+    = render post.comments
   .post_reply
     = render "comments/form", comment: post.comments.build(user: current_user)
 

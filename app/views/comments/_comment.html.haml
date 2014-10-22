@@ -5,8 +5,12 @@
     %h5.media-heading
       = link_to comment.user_name, comment.user
       %small
-        = "#{time_ago_in_words(comment.created_at)} ago"
-    %p= markdown(comment.content)
+        = "#{time_ago_in_words(comment.created_at)} ago - "
+        = link_to comment do
+          %span.glyphicon.glyphicon-link
+          = comment.id
+    .comment_content
+      %p= markdown(comment.content)
     .comment_photos
       = render comment.photos
     .comment_actions

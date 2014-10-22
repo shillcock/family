@@ -14,11 +14,11 @@ Rails.application.routes.draw do
   # posts
   resources :posts, concerns: :lovable, only: [:index, :create, :show, :destroy] do
     #comments
-    resources :comments, only: [:create, :destroy]
+    resources :comments, only: [:create]
   end
 
   # comments
-  resources :comments, concerns: :lovable, only: [:destroy]
+  resources :comments, concerns: :lovable, only: [:show, :destroy]
 
   # photos
   resources :photos, only: [:index, :show] do

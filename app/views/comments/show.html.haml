@@ -1,0 +1,6 @@
+.section
+  .col-xs-12.col-sm-offset-2.col-sm-8
+    = render @comment
+  .col-xs-12.col-sm-offset-2.col-sm-8
+    %br
+    = button_to "Delete", @comment, method: :delete, class: "btn btn-danger btn-block"
