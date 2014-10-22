@@ -25,7 +25,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post.destroy # if @post.user == current_user
+    @post.destroy if @post.user == current_user
 
     respond_to do |format|
       format.html { redirect_to posts_path }
