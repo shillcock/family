@@ -1,8 +1,7 @@
 class PhotosController < ApplicationController
   before_action :set_photo
 
-  def download
-    redirect_to photo_path
+  def show
   end
 
   def view
@@ -16,7 +15,11 @@ class PhotosController < ApplicationController
     end
 
     def photo_path
-      @photo.image_url(params[:version])
+      if params[:version]
+        @photo.image_url(params[:version])
+      else
+        @photo.image_url
+      end
     end
 end
 

@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   # photos
   resources :photos, only: [:index, :show] do
     member do
-      get "download"
       get "view"
     end
   end
