@@ -1,14 +1,12 @@
 - content_for :javascript do
   = javascript_include_tag 'sessions'
 
-%h1 AUTH STATUS
-
-Message sent.
-
-#auth-status
-  Waiting for verification...
-
-= link_to "Try again", root_path, class: "btn btn-default"
-%br
-%br
-= image_tag "http://photos.shillcock.net/photos/i-wqLQD59/0/L/i-wqLQD59-L.gif"
+.section
+  .col-xs-12.col-md-offset-2.col-md-8
+    %h2
+      Message sent.
+      %small
+        Waiting for verification...
+    .thumbnail
+      = image_tag "http://photos.shillcock.net/photos/random.mg?AlbumID=45190378&AlbumKey=jsgKP5&Size=Large", class: "img-rounded img-responsive"
+    = link_to "Try again", root_path, class: "btn btn-default btn-block"

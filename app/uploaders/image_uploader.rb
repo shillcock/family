@@ -48,6 +48,14 @@ class ImageUploader < CarrierWave::Uploader::Base
     end
   end
 
+  version :default do
+    process resize_to_limit: [600, nil]
+
+    def full_filename(for_file = model.image.file)
+      build_name(:default)
+    end
+  end
+
   version :square do
     process crop: [250, 250]
 

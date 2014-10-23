@@ -27,7 +27,7 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = true
 
-  # Asset digests allow you to set far-future HTTP expiration dates on all assets, 
+  # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
   config.assets.digest = true
 
@@ -43,9 +43,9 @@ Rails.application.configure do
 
   # config.web_console.automount = true
 
-  config.middleware.use Rack::TwilioWebhookAuthentication,
-                        ENV["TWILIO_AUTH_TOKEN"],
-                        ENV["TWILIO_VOICE_REQUEST_URL"],
-                        ENV["TWILIO_MESSAGING_REQUEST_URL"]
+  # config.middleware.use Rack::TwilioWebhookAuthentication,
+  #                       ENV["TWILIO_AUTH_TOKEN"],
+  #                       ENV["TWILIO_VOICE_REQUEST_URL"],
+  #                       ENV["TWILIO_MESSAGING_REQUEST_URL"]
 end
 
