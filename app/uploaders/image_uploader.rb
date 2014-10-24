@@ -5,10 +5,10 @@ class ImageUploader < CarrierWave::Uploader::Base
   def store_dir
     # photos/2014/02/001
     uploaded_at = model.created_at.strftime("%Y/%m")
+    # uploaded_at = Date.today.strftime("%Y/%m")
     dir = "#{model_dir}/#{uploaded_at}/#{model_id}"
-    # dir = "#{model_dir}/#{Date.today.strftime("%Y/%m")}/#{model_id}"
-    # dir.prepend("#{Rails.env}/") unless Rails.env.production?
-    # dir
+    dir.prepend("#{Rails.env}/") unless Rails.env.production?
+    dir
   end
 
   # def filename

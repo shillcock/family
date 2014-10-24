@@ -22,9 +22,5 @@ class Heart < ActiveRecord::Base
 
   validates :lovable, presence: true
   validates :user_id, presence: true, uniqueness: { scope: [:lovable_id, :lovable_type] }
-
-  def user_avatar(size = nil)
-    user.avatar_url(size)
-  end
 end
 

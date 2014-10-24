@@ -22,9 +22,9 @@ class Comment < ActiveRecord::Base
   belongs_to :commentable, polymorphic: true, touch: true
   belongs_to :user
   has_many :hearts, as: :lovable, dependent: :destroy
-  has_many :photos, as: :photoable, dependent: :destroy
+  has_many :photos, as: :photoable
 
-  accepts_nested_attributes_for :photos, allow_destroy: true
+  accepts_nested_attributes_for :photos
 
   validates :content, presence: true
   validates :commentable, presence: true
@@ -34,14 +34,6 @@ class Comment < ActiveRecord::Base
 
   def loved_by?(user)
     hearts.exists?(user: user)
-  end
-
-  def user_avatar(size = nil)
-    user.avatar_url(size)
-  end
-
-  def user_name
-    user.name
   end
 end
 

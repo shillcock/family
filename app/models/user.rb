@@ -32,12 +32,8 @@ class User < ActiveRecord::Base
 
   before_create { generate_token(:auth_token) }
 
-  def name
-    first_name
-  end
-
-  def avatar_url(size = nil)
-    GravatarService.new(self).image_url(size)
+  def avatar_url
+    "#{id}.png"
   end
 
   def to_param

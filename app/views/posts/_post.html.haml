@@ -1,9 +1,9 @@
 .post[post]
   = link_to post.user, class: "pull-left" do
-    = image_tag post.user_avatar(45), class: "avatar"
+    = user_avatar_tag(post.user, 45)
   .post_body
     %h4.media-heading
-      = link_to post.user_name, post.user
+      = link_to post.user.first_name, post.user
       %small
         = "#{time_ago_in_words(post.created_at)} ago - "
         = link_to post do
