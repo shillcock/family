@@ -1,11 +1,5 @@
-
-%li{class: active_path_class(:posts)}
-  = link_to "Posts", posts_path
-
-%li{class: active_path_class(:photos)}
-  = link_to "Photos", photos_path
-
-- %w{John Danielle Renee Scott Brian Wendy}.each do |user|
-  %li{class: active_path_class(user)}
-    = link_to user, user_path(user.downcase)
+- if signed_in?
+  - %w{John Danielle Renee Scott Brian Wendy}.each do |user|
+    %li{class: active_path_class(user)}
+      = link_to user, user_path(user.downcase)
 
