@@ -6,9 +6,8 @@
       = link_to post.user.first_name, post.user
       %small
         = "#{time_ago_in_words(post.created_at)} ago - "
-        = link_to post do
+        = link_to post, title: post.created_at.strftime("%b %d, %Y") do
           %span.glyphicon.glyphicon-link
-          = post.id
     .post_content
       %p= markdown(post.content)
     .post_photos

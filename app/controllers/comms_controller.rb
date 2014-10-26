@@ -6,8 +6,8 @@ class CommsController < ApplicationController
 
   def voice
     response = Twilio::TwiML::Response.new do |r|
-      r.Say 'Hello Scott!', voice:"alice"
-      r.Play 'http://linode.rabasa.com/cantina.mp3'
+      r.Say "Hello #{user.firs_name}!", voice:"alice"
+      r.Play "http://linode.rabasa.com/cantina.mp3"
     end
 
     render_twiml response

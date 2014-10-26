@@ -1,5 +1,8 @@
 .section.row
   .col-xs-12.col-sm-offset-2.col-sm-8
+    = link_to @comment.commentable do
+      %span.glyphicon.glyphicon-chevron-up
+      Post
     = render @comment
   -#.col-xs-12.col-sm-offset-2.col-sm-8
   -#  %br

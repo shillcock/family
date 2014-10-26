@@ -1,10 +1,14 @@
-.top_post {
+#top_post {
   margin-bottom: 20px;
   padding-bottom: 5px;
   border-bottom: solid;
 
   textarea {
     width: 100%;
+  }
+
+  .errors li{
+    color: red;
   }
 }
 

@@ -33,7 +33,16 @@ Rails.application.routes.draw do
   post "/voice", to: "comms#voice"
   post "/sms", to: "comms#sms"
 
-  get "/:id", to: "users#show", as: :user
+  # users
+  resources :users, only: [:index, :show] do
+    member do
+      get "posts"
+      get "comments"
+      get "hearts"
+      get "photos"
+    end
+  end
+#  get "/:id", to: "users#show", as: :user
 
   # default to posts index
   root "posts#index"

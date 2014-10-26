@@ -1,12 +1,13 @@
 .section.row
   .col-xs-12.col-md-offset-2.col-md-8
-    .top_post.media
+    #top_post.media
       = link_to current_user, class: "pull-left" do
         = user_avatar_tag current_user
       .media-body
         .media-heading
           %h2= "Hi #{current_user.first_name}"
       = render "form", post: @post
+      .errors
     #posts
       = render @posts
     = paginate @posts

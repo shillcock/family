@@ -1,5 +1,9 @@
 class PhotosController < ApplicationController
-  before_action :set_photo
+  before_action :set_photo, only: [:show, :view]
+
+  def index
+    @photos = Photo.random.limit(52)
+  end
 
   def show
   end

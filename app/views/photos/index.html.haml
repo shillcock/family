@@ -1,0 +1,6 @@
+.section.row
+  - @photos.each do |photo|
+    .col-xs-6.col-sm-3
+      = link_to photo.photoable do
+        = image_tag photo_image(photo, version: :square), class: "img-rounded img-responsive thumbnail"
+

@@ -6,9 +6,8 @@
       = link_to comment.user.first_name, comment.user
       %small
         = "#{time_ago_in_words(comment.created_at)} ago - "
-        = link_to comment do
+        = link_to comment, title: comment.created_at.strftime("%b %d, %Y")  do
           %span.glyphicon.glyphicon-link
-          = comment.id
     .comment_content
       %p= markdown(comment.content)
     .comment_photos
