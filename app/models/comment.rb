@@ -3,7 +3,7 @@
 # Table name: comments
 #
 #  id               :integer          not null, primary key
-#  content          :text             not null
+#  content          :text
 #  commentable_id   :integer          not null
 #  commentable_type :string           not null
 #  user_id          :integer          not null
@@ -26,7 +26,7 @@ class Comment < ActiveRecord::Base
 
   accepts_nested_attributes_for :photos
 
-  validates :content, presence: true
+  validates :content, presence: true, unless: "photos.any?"
   validates :commentable, presence: true
   validates :user, presence: true
 
@@ -34,6 +34,13 @@ class Comment < ActiveRecord::Base
 
   def loved_by?(user)
     hearts.exists?(user: user)
+  end
+
+  def send_notifications!
+    users = User.all - [self.user]
+    users.each do |user|
+      SendCommentNotificationJob.perform_later(self, user)
+    end
   end
 end
 

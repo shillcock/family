@@ -8,14 +8,17 @@
 #  image          :string           not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  user_id        :integer          not null
 #
 # Indexes
 #
 #  index_photos_on_photoable_id_and_photoable_type  (photoable_id,photoable_type)
+#  index_photos_on_user_id                          (user_id)
 #
 
 class Photo < ActiveRecord::Base
   belongs_to :photoable, polymorphic: true
+  belongs_to :user
 
   mount_uploader :image, ImageUploader
 

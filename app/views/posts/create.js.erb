@@ -1,4 +1,16 @@
-$("#posts").prepend("<%= j render @post %>");
-$("#<%= dom_id(@post) %>").find(".post_content").effect("highlight", {}, 3000)
+<% if @post.errors.any? %>
+  var errors = $("<ul />");
 
-$("#new_post")[0].reset();
+  <% @post.errors.full_messages.each do |error| %>
+    errors.append("<li><%= j error %></li>");
+  <% end %>
+
+  $("#top_post").find(".errors").html(errors);
+<% else %>
+  $("#posts").prepend("<%= j render @post %>");
+  $("#<%= dom_id(@post) %>").find(".post_content").effect("highlight", {}, 3000)
+
+  $("#new_post").find("input:text,textarea").val("");
+//  $("#new_post")[0].reset();
+  $("#post_errors").empty();
+<% end %>

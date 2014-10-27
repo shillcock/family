@@ -2,9 +2,13 @@ class CommentsController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    @comment = @post.comments.create!(comment_params)
+    @comment = @post.comments.build(comment_params)
+    #@comment.photos.each {|photo| photo.user = current_user}
 
-    track_comment
+    if @comment.save
+      @comment.send_notifications!
+      track_comment
+    end
 
     respond_to do |format|
       format.html { redirect_to posts_path }

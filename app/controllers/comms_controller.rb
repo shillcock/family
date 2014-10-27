@@ -15,7 +15,8 @@ class CommsController < ApplicationController
 
   def sms
     if @user.sms_confirmed?
-      @user.posts.create!(content: params["Body"])
+      post = @user.posts.create!(content: params["Body"])
+      post.send_notifications!
       head :ok
     elsif confirm_user
       response = Twilio::TwiML::Response.new do |r|

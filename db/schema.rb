@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141015185445) do
+ActiveRecord::Schema.define(version: 20141027002847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "comments", force: true do |t|
-    t.text     "content",          null: false
+    t.text     "content"
     t.integer  "commentable_id",   null: false
     t.string   "commentable_type", null: false
     t.integer  "user_id",          null: false
@@ -48,12 +48,14 @@ ActiveRecord::Schema.define(version: 20141015185445) do
     t.string   "image",          null: false
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.integer  "user_id",        null: false
   end
 
   add_index "photos", ["photoable_id", "photoable_type"], name: "index_photos_on_photoable_id_and_photoable_type", using: :btree
+  add_index "photos", ["user_id"], name: "index_photos_on_user_id", using: :btree
 
   create_table "posts", force: true do |t|
-    t.text     "content",    null: false
+    t.text     "content"
     t.integer  "user_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

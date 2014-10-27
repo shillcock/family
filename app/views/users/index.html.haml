@@ -3,18 +3,20 @@
     %table.table.table-striped
       %thead
         %tr
+          %th
           %th Name
           %th Posts
           %th Comments
-          %th Hearts
           %th Photos
+          %th Hearts
           %th Phone number
       %tbody
         - @users.each do |user|
           %tr
+            %td= user_avatar_tag(user, 40)
             %td= link_to user.first_name, user
             %td= user.posts.count
             %td= user.comments.count
+            %td= user.photos.count
             %td= user.hearts.count
-            %td= "?" #user.photos.count
             %td= user.phone_number

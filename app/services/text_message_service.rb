@@ -8,7 +8,11 @@ class TextMessageService
     end
 
     begin
-      @sms_message = twilio.messages.create(from: default_from, to: @to, body: @message)
+      @sms_message = twilio.messages.create(
+          from: default_from,
+          to: @to,
+          body: @message
+      )
     rescue Twilio::REST::RequestError => error_message
       error_message.to_s
     else

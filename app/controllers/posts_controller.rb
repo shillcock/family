@@ -8,11 +8,13 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.create!(post_params)
+    @post = current_user.posts.build(post_params)
+    @post.photos.each {|photo| photo.user = current_user}
 
-    track_post
-
-    #notify_users
+    if @post.save
+      @post.send_notifications!
+      track_post
+    end
 
     respond_to do |format|
       format.html { redirect_to :back }
@@ -41,15 +43,6 @@ class PostsController < ApplicationController
 
     def track_post
       analytics.track_user_post(@post)
-    end
-
-    def notify_users
-      #message = twilio.messages.create(
-      #  from: twilio_number,
-      #  to: '8312776362',
-      #  body: "[#{@post.id}] #{@post.content}",
-      #  media_url: "http://twilio.com/heart.jpg"
-      #)
     end
 
     def post_params

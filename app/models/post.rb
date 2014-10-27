@@ -3,7 +3,7 @@
 # Table name: posts
 #
 #  id         :integer          not null, primary key
-#  content    :text             not null
+#  content    :text
 #  user_id    :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -24,12 +24,19 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :photos
 
   validates :user, presence: true
-  validates :content, presence: true
+  validates :content, presence: true, unless: "photos.any?"
 
   scope :sorted, -> { order(updated_at: :desc) }
 
   def loved_by?(user)
     hearts.exists?(user: user)
+  end
+
+  def send_notifications!
+    users = User.all - [self.user]
+    users.each do |user|
+      SendPostNotificationJob.perform_later(self, user)
+    end
   end
 end
 
