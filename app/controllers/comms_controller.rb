@@ -17,7 +17,7 @@ class CommsController < ApplicationController
     if @user.sms_confirmed?
       create_post_from_sms
     elsif confirm_user
-      send_welcome_response
+      send_welcome_message
     end
  end
 
