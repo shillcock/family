@@ -4,10 +4,10 @@ class SendPostNotificationJob < ActiveJob::Base
   def perform(post, user)
     message_params = {
       to: user.phone_number,
-      message: "P#{post.id} #{post.content}"
+      message: "##{post.id} @#{post.user.to_param} posted\n#{post.content}"
     }
 
-    # params[:media_url] = post.photos.first.image_url(:medium) if post.photos.any?
+    message_params[:media_url] = post.photos.first.image_url(:medium) if post.photos.any?
 
     sms_service.send!(message_params)
   end

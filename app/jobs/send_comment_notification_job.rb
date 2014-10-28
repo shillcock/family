@@ -4,10 +4,10 @@ class SendCommentNotificationJob < ActiveJob::Base
   def perform(comment, user)
     message_params = {
       to: user.phone_number,
-      message: "C#{comment.commentable.id} #{comment.content}"
+      message: "##{comment.commentable.id} @#{comment.user.to_param} replied\n#{comment.content}"
     }
 
-    # params[:media_url] = comment.photos.first.image_url(:medium) if comment.photos.any?
+    message_params[:media_url] = comment.photos.first.image_url(:medium) if comment.photos.any?
 
     sms_service.send!(message_params)
   end

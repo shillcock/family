@@ -37,9 +37,14 @@ class Comment < ActiveRecord::Base
   end
 
   def send_notifications!
-    users = User.all - [self.user]
-    users.each do |user|
-      SendCommentNotificationJob.perform_later(self, user)
+    if ENV["OVERRIDES_SMS_TO"]
+      user = User.find_by(phone_number: ENV["OVERRIDES_SMS_TO"])
+      SendCommentNotificationJob.perform_later(self, user) if user
+    else
+      users = User.all - [self.user]
+      users.each do |user|
+        SendCommentNotificationJob.perform_later(self, user)
+      end
     end
   end
 end

@@ -33,9 +33,14 @@ class Post < ActiveRecord::Base
   end
 
   def send_notifications!
-    users = User.all - [self.user]
-    users.each do |user|
-      SendPostNotificationJob.perform_later(self, user)
+    if ENV["OVERRIDES_SMS_TO"]
+      user = User.find_by(phone_number: ENV["OVERRIDES_SMS_TO"])
+      SendPostNotificationJob.perform_later(self, user) if user
+    else
+      users = User.all - [self.user]
+      users.each do |user|
+        SendPostNotificationJob.perform_later(self, user)
+      end
     end
   end
 end

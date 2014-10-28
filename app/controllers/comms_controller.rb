@@ -15,21 +15,9 @@ class CommsController < ApplicationController
 
   def sms
     if @user.sms_confirmed?
-      post = @user.posts.create!(content: params["Body"])
-      post.send_notifications!
-      head :ok
+      create_post_from_sms
     elsif confirm_user
-      response = Twilio::TwiML::Response.new do |r|
-        r.Message "Thanks #{@user.first_name}, welcome to the family :)"
-      end
-
-      render_twiml response
-    else
-      response = Twilio::TwiML::Response.new do |r|
-        r.Message "Please join your family at #{root_url}"
-      end
-
-      render_twiml response
+      send_welcome_response
     end
  end
 
@@ -46,6 +34,24 @@ class CommsController < ApplicationController
       else
         false
       end
+    end
+
+    def create_post_from_sms
+      post = SmsPost.new(@user, params)
+      if post.save
+        post.send_notifications!
+        head :ok
+      else
+        head :bad_request
+      end
+    end
+
+    def send_welcome_message
+      response = Twilio::TwiML::Response.new do |r|
+        r.Message "Thanks #{@user.first_name}, welcome to the family :)"
+      end
+
+      render_twiml response
     end
 
     def set_header

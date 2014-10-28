@@ -1,27 +1,24 @@
 class TextMessageService
-  def send!(to: nil, message: nil)
-    @to = ENV["OVERRIDES_SMS_TO"] || to
-    @message = if ENV["OVERRIDES_SMS_TO"]
-      "#{to} - #{message}"
-    else
-      message
-    end
+  def send!(to: nil, message: nil, media_url: nil)
+    to = ENV["OVERRIDES_SMS_TO"] || to
 
     begin
-      @sms_message = twilio.messages.create(
-          from: default_from,
-          to: @to,
-          body: @message
-      )
+      media_url ? send_mms(to, message, media_url) : send_sms(to, message)
     rescue Twilio::REST::RequestError => error_message
+      Rollbar.error(error_message)
       error_message.to_s
-    else
-      Rollbar.report_message("Text message sent to #{to}")
-      "success"
     end
   end
 
   private
+    def send_sms(to, message)
+      twilio.messages.create(from: default_from, to: to, body: message)
+    end
+
+    def send_mms(to, message, media_url)
+      twilio.messages.create(from: default_from, to: to, body: message, media_url: media_url)
+    end
+
     def default_from
       ENV["TWILIO_PHONE_NUMBER"]
     end
