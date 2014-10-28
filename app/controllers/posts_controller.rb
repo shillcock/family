@@ -3,7 +3,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.sorted.page(params[:page]).per(10)
-    #@posts = Post.order(id: :asc).page(params[:page]).page(5)
+    #@posts = Post.all.page(params[:page]).page(10)
     @post = current_user.posts.build
   end
 

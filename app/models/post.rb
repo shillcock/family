@@ -26,7 +26,7 @@ class Post < ActiveRecord::Base
   validates :user, presence: true
   validates :content, presence: true, unless: "photos.any?"
 
-  scope :sorted, -> { order(updated_at: :desc) }
+  scope :sorted, -> { order(created_at: :desc) }
 
   def loved_by?(user)
     hearts.exists?(user: user)
