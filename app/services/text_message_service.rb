@@ -1,9 +1,14 @@
 class TextMessageService
   def send!(to: nil, message: nil, media_url: nil)
     to = ENV["OVERRIDES_SMS_TO"] || to
+    message = message.truncate(1500, omission: "... (continued)")
 
     begin
-      media_url ? send_mms(to, message, media_url) : send_sms(to, message)
+      @text_message = if media_url
+        send_mms(to, message, media_url)
+      else
+        send_sms(to, message)
+      end
     rescue Twilio::REST::RequestError => error_message
       Rollbar.error(error_message)
       error_message.to_s
