@@ -3,10 +3,11 @@
     = user_avatar_tag(post.user, 45)
   .post_body
     %h4.media-heading
-      = link_to post.user.first_name, post.user
+      = link_to post.user.first_name, post.user, title: post.created_at.strftime("%b %d, %Y")
       %small
         = "#{time_ago_in_words(post.created_at)} ago - "
-        = link_to post, title: post.created_at.strftime("%b %d, %Y") do
+        = link_to post, title: post.id do
+          = post.id
           %span.glyphicon.glyphicon-link
     .post_content
       %p= markdown(post.content)

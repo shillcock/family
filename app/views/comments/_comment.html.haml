@@ -3,10 +3,11 @@
     = user_avatar_tag(comment.user, 30)
   .comment_body
     %h5.media-heading
-      = link_to comment.user.first_name, comment.user
+      = link_to comment.user.first_name, comment.user, title: comment.created_at.strftime("%b %d, %Y")
       %small
         = "#{time_ago_in_words(comment.created_at)} ago - "
-        = link_to comment, title: comment.created_at.strftime("%b %d, %Y")  do
+        = link_to comment, title: comment.id do
+          = comment.id
           %span.glyphicon.glyphicon-link
     .comment_content
       %p= markdown(comment.content)
