@@ -1,31 +1,53 @@
 class TextMessageService
-  def send!(to: nil, message: nil, media_url: nil)
-    to = ENV["OVERRIDES_SMS_TO"] || to
-    message = message.truncate(1500, omission: "... (continued)")
+  def initialize(to: nil, message: nil, media: nil)
+    @to = to
+    @body = message
+    @media = media
+  end
 
-    begin
-      @text_message = if media_url
-        send_mms(to, message, media_url)
+  def send!
+    rescue_send_execption do
+      if @media.try(:any?)
+        send_mms
       else
-        send_sms(to, message)
+        send_sms
       end
-    rescue Twilio::REST::RequestError => error_message
-      Rollbar.error(error_message)
-      error_message.to_s
     end
   end
 
   private
-    def send_sms(to, message)
-      twilio.messages.create(from: default_from, to: to, body: message)
+
+    def rescue_send_execption
+      yield
+    rescue Twilio::REST::RequestError => error_message
+      Rollbar.error(error_message)
+      error_message.to_s
     end
 
-    def send_mms(to, message, media_url)
-      twilio.messages.create(from: default_from, to: to, body: message, media_url: media_url)
+    def to
+      ENV["OVERRIDES_SMS_TO"] || @to
     end
 
-    def default_from
+    def body
+      @truncated_body ||= @body.truncate(1500, omission: "... (continued)")
+    end
+
+    def media
+      @media
+    end
+
+    def from
       ENV["TWILIO_PHONE_NUMBER"]
+    end
+
+    def send_sms
+      @sms = twilio.messages.create(from: from, to: to, body: body)
+      @sms.sid
+    end
+
+    def send_mms
+      @mms = twilio.messages.create(from: from, to: to, body: body, media_url: media)
+      @mms.sid
     end
 
     def twilio

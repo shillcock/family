@@ -4,6 +4,7 @@ class SmsPost
   def initialize(user, params)
     @user = user
     @params = params
+    process_body
     @post = build_comment
     @post ||= build_post
     build_photos if @post
@@ -38,12 +39,12 @@ class SmsPost
       sms_media_type(id).starts_with? "image"
     end
 
-    def post_id
-      regex = Regexp.new(/\A#?(\d+[\s])(.+)/m)
+    def process_body
+      regex = Regexp.new(/\A#?(\d+[\s])/)
       match = regex.match(sms_body)
       if match
-        @body = match[2]
-        match[1]
+        @post_id = match[1].strip.to_i
+        @body = sms_body[match[1].length..-1]
       end
     end
 
@@ -52,7 +53,7 @@ class SmsPost
     end
 
     def build_comment
-      post = Post.find_by(id: post_id)
+      post = Post.find_by(id: @post_id)
       post.comments.build(content: sms_body, user: @user) if post
     end
 
