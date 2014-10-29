@@ -3,7 +3,7 @@
     = user_avatar_tag(comment.user, 30)
   .comment_body
     %h5.media-heading
-      = link_to comment.user.first_name, comment.user, title: comment.created_at.strftime("%b %d, %Y")
+      = link_to comment.user.first_name, comment.user, title: comment.created_at.strftime("%A, %B %Y  @ %l:%M %p")
       %small
         = "#{time_ago_in_words(comment.created_at)} ago - "
         = link_to comment, title: comment.id do
