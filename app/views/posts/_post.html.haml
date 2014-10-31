@@ -5,7 +5,7 @@
     %h4.media-heading
       = link_to post.user.first_name, post.user, title: post.created_at.strftime("%A, %B %Y  @ %l:%M %p")
       %small
-        = "#{time_ago_in_words(post.created_at)} ago - "
+        = "posted #{time_ago_in_words(post.created_at)} ago - "
         = link_to post, title: post.id do
           = post.id
           %span.glyphicon.glyphicon-link

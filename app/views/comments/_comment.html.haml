@@ -5,7 +5,7 @@
     %h5.media-heading
       = link_to comment.user.first_name, comment.user, title: comment.created_at.strftime("%A, %B %Y  @ %l:%M %p")
       %small
-        = "#{time_ago_in_words(comment.created_at)} ago - "
+        = "replied #{time_ago_in_words(comment.created_at)} ago - "
         = link_to comment, title: comment.id do
           = comment.id
           %span.glyphicon.glyphicon-link

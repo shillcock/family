@@ -21,7 +21,7 @@ class TextMessageService
       yield
     rescue Twilio::REST::RequestError => error_message
       Rollbar.error(error_message)
-      error_message.to_s
+      nil
     end
 
     def to
