@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   end
 
   def throttle_notifications?
-    [3, 4].include?(id) # throttle notification for Renee
+    [3].include?(id) # throttle notification for Renee
   end
 
   def avatar_url
