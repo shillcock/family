@@ -1,5 +1,5 @@
 class TextMessageService
-  def initialize(to: nil, message: nil, media: nil)
+  def initialize(to: nil, message: "", media: nil)
     @to = to
     @body = message
     @media = media
@@ -29,7 +29,7 @@ class TextMessageService
     end
 
     def body
-      @truncated_body ||= @body.truncate(1500, omission: "... (continued)")
+      @truncated_body ||= @body.truncate(1500, omission: "... (continued)") if @body
     end
 
     def media

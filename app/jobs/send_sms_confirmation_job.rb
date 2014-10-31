@@ -4,16 +4,10 @@ class SendSmsConfirmationJob < ActiveJob::Base
   def perform(user)
     user.generate_sms_token!
 
-    sms_service.send!(
+    TextMessageService.new(
       to: user.phone_number,
       message: "Hi #{user.first_name}, please reply with the following code: #{user.sms_token}"
-    )
+    ).send!
   end
-
-  private
-
-    def sms_service
-      @sms ||= TextMessageService.new
-    end
 end
 
