@@ -33,6 +33,10 @@ class User < ActiveRecord::Base
 
   before_create { generate_token(:auth_token) }
 
+  def can_receive_mms?
+    id != 1 # currently only Dad can't receive mms messages
+  end
+
   def avatar_url
     "#{id}.png"
   end
