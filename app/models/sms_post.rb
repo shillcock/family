@@ -1,21 +1,19 @@
 class SmsPost
-  attr_reader :post
-
   def initialize(user, params)
     @user = user
     @params = params
+    @notify = true
     process_body
-    @post = build_comment
-    @post ||= build_post
-    build_photos if @post
+    build_post_or_comment
+    build_photos
   end
 
   def save
-    @post.save
+    @sms_post.save
   end
 
   def send_notifications!
-    @post.send_notifications!
+    @sms_post.send_notifications! if @notify
   end
 
   private
@@ -48,20 +46,35 @@ class SmsPost
       end
     end
 
+    def build_post_or_comment
+      @post = Post.find_by(id: @post_id)
+      if @post
+        build_comment
+      else
+        build_post
+      end
+    end
+
     def build_post
-      @user.posts.build(content: sms_body)
+      @post = Post.last
+      if (Time.zone.now - @post.updated_at) <= 5.seconds
+        @sms_post = @post
+        @sms_post.content = @post.content + sms_body
+        @notify = false
+        Rollbar.info("Appended sms txt to last post #{@post.id} from #{@user.first_name}.")
+      else
+        @sms_post = @user.posts.build(content: sms_body)
+      end
     end
 
     def build_comment
-      post = Post.find_by(id: @post_id)
-      post.comments.build(content: sms_body, user: @user) if post
+      @sms_post = @post.comments.build(content: sms_body, user: @user)
     end
 
     def build_photos
-      parent = @post || @comment
       sms_media_count.times do |ix|
         if sms_media_is_image?(ix)
-          photo = parent.photos.build
+          photo = @sms_post.photos.build
           photo.remote_image_url = sms_media_url(ix)
           photo.user = parent.user
         end
