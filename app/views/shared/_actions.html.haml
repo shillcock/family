@@ -1,8 +1,15 @@
+- message = "Are you sure you want to permanently delete this #{post.class.to_s.downcase}?"
+.btn-group.btn-group-sm.pull-right
+  - if policy(post).edit?
+    = link_to "#", class: "btn btn-default" do
+      %span.glyphicon.glyphicon-edit
+  - if policy(post).destroy?
+    = link_to post, title: "Delete #{post.class.to_s}", remote: true, method: :delete, class: "btn btn-default", data: { confirm: "#{message}" } do
+      %span.glyphicon.glyphicon-trash
 %ul.inline-list
   %li
-    = render "hearts/love_button", lovable: lovable
-  - if lovable.hearts.any?
-    - lovable.hearts.each do |heart|
-      %li
-        = user_avatar_tag(heart.user, 20)
+    = render "hearts/love_button", lovable: post
+  - if post.hearts.any?
+    - post.hearts.each do |heart|
+      %li= user_avatar_tag(heart.user, 20)
 

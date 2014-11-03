@@ -26,13 +26,17 @@ class Post < ActiveRecord::Base
   validates :user, presence: true
   validates :content, presence: true, unless: "photos.any?"
 
-  scope :sorted, -> { order(created_at: :desc) }
+  scope :sort_by_created_at, -> { order(created_at: :desc) }
+  scope :sort_by_updated_at, -> { order(updated_at: :desc) }
+
+  before_save :process_content
 
   def loved_by?(user)
     hearts.exists?(user: user)
   end
 
   def send_notifications!
+    return unless @notify
     if ENV["OVERRIDES_SMS_TO"]
       user = User.find_by(phone_number: ENV["OVERRIDES_SMS_TO"])
       SendPostNotificationJob.perform_later(self, user) if user
@@ -43,5 +47,16 @@ class Post < ActiveRecord::Base
       end
     end
   end
+
+  private
+
+    def process_content
+      if content.starts_with?("!!")
+        @notify = false
+        self.content.slice!(0..1)
+      else
+        @notify = true
+      end
+    end
 end
 

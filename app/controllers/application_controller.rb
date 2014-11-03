@@ -1,10 +1,11 @@
 class ApplicationController < ActionController::Base
-  before_action :authorize
+  before_action :authorize_user
   protect_from_forgery with: :exception
+  include Pundit
 
   private
 
-    def authorize
+    def authorize_user
       unless signed_in?
         flash[:notice] = "Please sign in."
         redirect_to new_session_path

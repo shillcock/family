@@ -1,12 +1,12 @@
 class CommsController < ApplicationController
-  skip_before_action :authorize, only: [:voice, :sms]
+  skip_before_action :authorize_user, only: [:voice, :sms]
   skip_before_action :verify_authenticity_token
   before_action :set_user, only: [:voice, :sms]
   after_filter :set_header
 
   def voice
     response = Twilio::TwiML::Response.new do |r|
-      r.Say "Hello #{user.firs_name}!", voice:"alice"
+      r.Say "Hello #{@user.first_name}, have a terrific day.", voice:"alice"
       r.Play "http://linode.rabasa.com/cantina.mp3"
     end
 

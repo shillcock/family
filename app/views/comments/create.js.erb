@@ -1,4 +1,11 @@
-$("#<%= dom_id(@comment.commentable) %>").find(".post_comments").append("<%= j render @comment %>");
-$("#<%= dom_id(@comment) %>").find(".comment_content").effect("highlight", {}, 3000)
-$("#<%= dom_id(@comment.commentable) %>_new_comment")[0].reset()
+
+var comment_id = "#<%= dom_id(@comment) %>";
+var commentable_id = "#<%= dom_id(@comment.commentable) %>";
+var commentable_class = ".<%= dom_class(@comment.commentable) %>";
+
+$(commentable_id).find(".post_comments").append("<%= j render @comment %>");
+$(comment_id).find(".comment_content").effect("highlight", {}, 3000)
+$(commentable_id + "_new_comment")[0].reset()
+
+$(commentable_id).find(commentable_class + "_actions").html("<%= j render "shared/actions", post: @comment.commentable %>");
 

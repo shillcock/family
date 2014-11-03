@@ -2,14 +2,12 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :destroy]
 
   def index
-    @posts = Post.sorted.page(params[:page]).per(10)
-    #@posts = Post.all.page(params[:page]).page(10)
+    set_posts
     @post = current_user.posts.build
   end
 
   def create
-    @post = current_user.posts.build(post_params)
-    @post.photos.each {|photo| photo.user = current_user}
+    build_post
 
     if @post.save
       @post.send_notifications!
@@ -17,17 +15,17 @@ class PostsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_to posts_path }
       format.js
     end
   end
 
   def show
-    @post = Post.find(params[:id])
+    # empty
   end
 
   def destroy
-    @post.destroy if @post.user == current_user
+    @post.destroy
 
     respond_to do |format|
       format.html { redirect_to posts_path }
@@ -37,8 +35,25 @@ class PostsController < ApplicationController
 
   private
 
+    def set_posts
+      @posts = if params[:sort_by] == "updated"
+        Post.sort_by_updated_at.page(params[:page]).per(10)
+      else
+        Post.sort_by_created_at.page(params[:page]).per(10)
+      end
+
+      authorize @posts
+    end
+
     def set_post
       @post = Post.find(params[:id])
+      authorize @post
+    end
+
+    def build_post
+      @post = current_user.posts.build(post_params)
+      @post.photos.each {|photo| photo.user = current_user}
+      authorize @post
     end
 
     def track_post

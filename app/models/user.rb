@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
 
   before_create { generate_token(:auth_token) }
 
+  def admin?
+    false
+  end
+
   def can_receive_mms?
     ![1].include?(id) # Dad can't receive mms messages
   end

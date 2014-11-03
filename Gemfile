@@ -28,6 +28,7 @@ gem "fog", "~> 1.24.0", require: "fog/aws/storage"
 gem "carrierwave", "~> 0.10.0"
 gem "twilio-ruby", "~> 3.13.1"
 gem "kaminari", "~> 0.16.1"
+gem "pundit", "~> 0.3.0"
 
 #gem "rails_12factor", group: :production
 

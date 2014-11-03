@@ -4,6 +4,17 @@
       %span.glyphicon.glyphicon-chevron-up
       Post
     = render @comment
-  -#.col-xs-12.col-sm-offset-2.col-sm-8
-  -#  %br
-  -#  = button_to "Delete", @comment, method: :delete, class: "btn btn-danger btn-block"
+  .col-xs-12.col-sm-offset-2.col-sm-8
+    .btn-group.btn-group-large.btn-group-justified
+      = link_to :back, class: "btn btn-primary" do
+        %span.glyphicon.glyphicon-chevron-left
+        Back
+      - if policy(@comment).edit?
+        = link_to @comment, class: "btn btn-success" do
+          %span.glyphicon.glyphicon-pencil
+          Edit
+      - if policy(@comment).destroy?
+        = link_to @comment, method: :delete, class: "btn btn-danger" do
+          %span.glyphicon.glyphicon-remove
+          Delete
+

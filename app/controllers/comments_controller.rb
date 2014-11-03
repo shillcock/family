@@ -1,9 +1,9 @@
 class CommentsController < ApplicationController
+  before_action :set_post, only: [:create]
+  before_action :set_comment, only: [:show, :destroy]
 
   def create
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.build(comment_params)
-    #@comment.photos.each {|photo| photo.user = current_user}
+    build_comment
 
     if @comment.save
       @comment.send_notifications!
@@ -17,20 +17,34 @@ class CommentsController < ApplicationController
   end
 
   def show
-    @comment = Comment.find(params[:id])
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
-    @comment.destroy if @comment.user == current_user
+    commentable = @comment.commentable
+    @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to posts_path }
+      format.html { redirect_to [commentable]}
       format.js
     end
   end
 
   private
+    def set_post
+      @post = Post.find(params[:post_id])
+    end
+
+    def set_comment
+      @comment = Comment.find(params[:id])
+      authorize @comment
+    end
+
+    def build_comment
+      @comment = @post.comments.build(comment_params)
+      authorize @comment
+
+      @comment.photos.each {|photo| photo.user = current_user}
+    end
 
     def track_comment
       analytics.track_user_post(@comment)

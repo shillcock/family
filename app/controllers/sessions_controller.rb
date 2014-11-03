@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :authorize, only: [:new, :create, :status]
+  skip_before_action :authorize_user, only: [:new, :create, :status]
   before_action :set_user, only: [:status]
 
   def new
