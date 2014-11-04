@@ -11,10 +11,12 @@
 #  updated_at       :datetime         not null
 #  latitude         :float
 #  longitude        :float
+#  deleted_at       :datetime
 #
 # Indexes
 #
 #  index_comments_on_commentable_id_and_commentable_type  (commentable_id,commentable_type)
+#  index_comments_on_deleted_at                           (deleted_at)
 #  index_comments_on_user_id                              (user_id)
 #
 

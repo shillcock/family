@@ -17,6 +17,7 @@
 #
 
 class Photo < ActiveRecord::Base
+  acts_as_paranoid
   belongs_to :photoable, polymorphic: true
   belongs_to :user
 

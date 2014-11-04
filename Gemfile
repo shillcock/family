@@ -29,6 +29,7 @@ gem "carrierwave", "~> 0.10.0"
 gem "twilio-ruby", "~> 3.13.1"
 gem "kaminari", "~> 0.16.1"
 gem "pundit", "~> 0.3.0"
+gem "paranoia", :github => "radar/paranoia", :branch => "rails4"
 
 #gem "rails_12factor", group: :production
 

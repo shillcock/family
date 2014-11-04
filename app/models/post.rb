@@ -9,13 +9,16 @@
 #  updated_at :datetime         not null
 #  latitude   :float
 #  longitude  :float
+#  deleted_at :datetime
 #
 # Indexes
 #
-#  index_posts_on_user_id  (user_id)
+#  index_posts_on_deleted_at  (deleted_at)
+#  index_posts_on_user_id     (user_id)
 #
 
 class Post < ActiveRecord::Base
+  acts_as_paranoid
   belongs_to :user, inverse_of: :posts
   has_many :comments, -> { sorted }, as: :commentable, dependent: :destroy
   has_many :hearts, as: :lovable, dependent: :destroy
