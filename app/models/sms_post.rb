@@ -76,7 +76,7 @@ class SmsPost
         if sms_media_is_image?(ix)
           photo = @sms_post.photos.build
           photo.remote_image_url = sms_media_url(ix)
-          photo.user = parent.user
+          photo.user = @sms_post.user
         end
       end
     end
