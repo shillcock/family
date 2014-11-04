@@ -7,12 +7,12 @@
       = link_to posts_path, class: "btn btn-primary" do
         %span.glyphicon.glyphicon-chevron-left
         Back
-      - if policy(@post).edit?
-        = link_to @post, class: "btn btn-success" do
-          %span.glyphicon.glyphicon-pencil
-          Edit
-      - if policy(@post).destroy?
-        = link_to @post, method: :delete, class: "btn btn-danger" do
-          %span.glyphicon.glyphicon-remove
-          Delete
+  -#    - if policy(@post).edit?
+  -#      = link_to @post, class: "btn btn-success" do
+  -#        %span.glyphicon.glyphicon-pencil
+  -#        Edit
+  -#    - if policy(@post).destroy?
+  -#      = link_to @post, method: :delete, class: "btn btn-danger" do
+  -#        %span.glyphicon.glyphicon-remove
+  -#        Delete
 
