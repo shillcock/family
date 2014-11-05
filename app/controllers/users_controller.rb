@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   def show
     @posts = if @user
-      @user.posts.sorted.page(params[:page]).per(10)
+      @user.posts.sort_by_created_at.page(params[:page]).per(10)
     else
       []
     end
