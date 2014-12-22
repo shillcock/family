@@ -21,11 +21,7 @@ class SendPostNotificationJob < ActiveJob::Base
     end
 
     def media
-      if @user.can_receive_mms?
-        @post.photos.map {|photo| photo.image_url(:medium)}
-      else
-        []
-      end
+      @post.photos.map {|photo| photo.image_url(:medium)}
     end
 
     def ok_to_notify_user?

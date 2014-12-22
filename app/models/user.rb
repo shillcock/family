@@ -38,12 +38,10 @@ class User < ActiveRecord::Base
     false
   end
 
-  def can_receive_mms?
-    ![1].include?(id) # Dad can't receive mms messages
-  end
-
   def throttle_notifications?
-    [3].include?(id) # throttle notification for Renee
+    #turn off throttling for now
+    #[3].include?(id) # throttle notification for Renee
+    false
   end
 
   def avatar_url
