@@ -36,10 +36,10 @@ class PostsController < ApplicationController
   private
 
     def set_posts
-      @posts = if params[:sort_by] == "updated"
-        Post.sort_by_updated_at.page(params[:page]).per(10)
-      else
+      @posts = if params[:sort_by] == "created_at"
         Post.sort_by_created_at.page(params[:page]).per(10)
+      else
+        Post.sort_by_updated_at.page(params[:page]).per(10)
       end
 
       authorize @posts

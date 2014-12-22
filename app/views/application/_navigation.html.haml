@@ -13,7 +13,7 @@
       - if signed_in?
         %ul.nav.navbar-nav.navbar-right
           %li{class: active_path_class(:posts)}
-            = link_to "Posts", posts_path
+            = link_to "Posts", posts_path(sort_by: "created_at")
           %li{class: active_path_class(:photos)}
             = link_to "Photos", photos_path
           %li.dropdown
