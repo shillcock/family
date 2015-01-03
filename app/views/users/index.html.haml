@@ -10,6 +10,7 @@
           %th Photos
           %th Hearts
           %th Phone number
+          %th Email
       %tbody
         - @users.each do |user|
           %tr
@@ -20,3 +21,4 @@
             %td= user.photos.count
             %td= user.hearts.count
             %td= user.phone_number
+            %td= user.email

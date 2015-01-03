@@ -14,6 +14,7 @@
 #  sms_token                 :string
 #  sms_confirmed_at          :datetime
 #  last_notification_sent_at :datetime         default("2014-10-31 20:31:07.471607"), not null
+#  password_digest           :string
 #
 # Indexes
 #

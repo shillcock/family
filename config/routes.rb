@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   post "/sms", to: "comms#sms"
 
   # users
-  resources :users, only: [:index, :show] do
+  resources :users, only: [:index, :show, :edit, :update] do
     member do
       get "posts"
       get "comments"

@@ -14,6 +14,7 @@
 #  sms_token                 :string
 #  sms_confirmed_at          :datetime
 #  last_notification_sent_at :datetime         default("2014-10-31 20:31:07.471607"), not null
+#  password_digest           :string
 #
 # Indexes
 #
@@ -22,12 +23,14 @@
 #
 
 class User < ActiveRecord::Base
+  has_secure_password
   has_many :posts, inverse_of: :user
   has_many :comments
   has_many :hearts
   has_many :photos
 
   validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :password, length: { in: 6..30 }
   validates :phone_number, presence: true, uniqueness: { case_sensitive: false }
   validates :first_name, presence: true
   validates :last_name, presence: true

@@ -1,0 +1,10 @@
+.section.row
+  .col-xs-12.col-md-offset-2.col-md-8
+    %h3
+      %span.glyphicon.glyphicon-user
+      Change Your Password
+    = simple_form_for @user do |f|
+      = f.input :password, label: "New Password"
+      = f.input :password_confirmation, label: "Confirm Password"
+      = f.submit "Change Password", data: { disable_with: "Submitting..." }, class: "btn btn-primary"
+
