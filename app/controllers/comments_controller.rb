@@ -41,9 +41,8 @@ class CommentsController < ApplicationController
 
     def build_comment
       @comment = @post.comments.build(comment_params)
-      authorize @comment
-
       @comment.photos.each {|photo| photo.user = current_user}
+      authorize @comment
     end
 
     def track_comment

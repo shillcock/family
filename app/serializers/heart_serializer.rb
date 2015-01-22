@@ -1,4 +1,4 @@
 class HeartSerializer < ActiveModel::Serializer
-  attributes :id, :lovable, :lovable, :lovable, :lovable, :lovable, :lovable, :lovable, :lovable, :lovable
+  attributes :id, :lovable
   has_one :user
 end

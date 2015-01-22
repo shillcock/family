@@ -1,5 +1,6 @@
-= simple_form_for [comment.commentable, comment], remote: true, html: {id: "#{dom_id(comment.commentable)}_#{dom_id(comment)}"} do |f|
+= simple_form_for [comment.commentable, comment], remote: true, authenticity_token: true, html: { multipart: true, id: "#{dom_id(comment.commentable)}_#{dom_id(comment)}"} do |f|
   = f.error_notification
   = f.input :content, label: false, placeholder: " leave a comment..."
+  = f.input :photos, as: :file, label: false, input_html: { multiple: true, name: "comment[photos_attributes][][image]" }
   = f.submit "Comment", data: { disable_with: "Submitting..." }, class: "btn btn-default pull-right"
 

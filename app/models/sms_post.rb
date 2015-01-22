@@ -57,7 +57,7 @@ class SmsPost
 
     def build_post
       @post = Post.last
-      if (Time.zone.now - @post.updated_at) <= 5.seconds and @post.user == @user
+      if (Time.zone.now - @post.updated_at) <= 10.seconds and @post.user == @user
         @sms_post = @post
         @sms_post.content = @post.content + sms_body
         @notify = false
